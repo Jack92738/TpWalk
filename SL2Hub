@@ -1,8 +1,8 @@
-local Players = game:service('Players')
+local Players = game:GetService('Players')
 local Player = Players.LocalPlayer
 
-local userInput = game:service('UserInputService')
-local runService = game:service('RunService')
+local userInput = game:GetService('UserInputService')
+local runService = game:GetService('RunService')
 
 repeat wait() until Player.Character
 
@@ -10,34 +10,34 @@ local Character = Player.Character
 local pHum = Character:WaitForChild('Humanoid')
 local humRoot = Character:WaitForChild('HumanoidRootPart')
 
-local Multiplier = Value
+local Multiplier = 1
 
-userInput.InputBegan:connect(function(Key)
+userInput.InputBegan:Connect(function(Key)
     if Key.KeyCode == Enum.KeyCode.LeftBracket then
-        Multiplier = Multiplier + 0.1
-        print(Multiplier)
+        Multiplier = Multiplier + 1
+        print(Multiplier / 10)  -- Print the scaled value (0.1, 0.2, etc.)
         wait(0.2)
         while userInput:IsKeyDown(Enum.KeyCode.LeftBracket) do
             wait()
-            Multiplier = Multiplier + 0.1
-            print(Multiplier)
+            Multiplier = Multiplier + 1
+            print(Multiplier / 10)
         end
     end
     
     if Key.KeyCode == Enum.KeyCode.RightBracket then
-        Multiplier = Multiplier - 0.1
-        print(Multiplier)
+        Multiplier = Multiplier - 1
+        print(Multiplier / 10)
         wait(0.2)
         while userInput:IsKeyDown(Enum.KeyCode.RightBracket) do
             wait()
-            Multiplier = Multiplier - 0.1
-            print(Multiplier)
+            Multiplier = Multiplier - 1
+            print(Multiplier / 10)
         end
     end
 end)
 
-runService.Stepped:connect(function()
+runService.Stepped:Connect(function()
     if userInput:IsKeyDown(Enum.KeyCode.LeftShift) then
-        humRoot.CFrame = humRoot.CFrame + pHum.MoveDirection * Multiplier
+        humRoot.CFrame = humRoot.CFrame + pHum.MoveDirection * (Multiplier / 10)
     end
 end)
