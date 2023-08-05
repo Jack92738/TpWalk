@@ -10,7 +10,7 @@ local Character = Player.Character
 local pHum = Character:WaitForChild('Humanoid')
 local humRoot = Character:WaitForChild('HumanoidRootPart')
 
-local Multiplier = 0.3
+local Multiplier = Value
 
 userInput.InputBegan:connect(function(Key)
     if Key.KeyCode == Enum.KeyCode.LeftBracket then
